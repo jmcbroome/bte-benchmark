@@ -25,7 +25,7 @@ nwk_f.close()
 
 etet = ete3.Tree(nwk,format=1)
 start = time.perf_counter()
-etet.search_nodes(name=target)
+etet.iter_search_nodes(name=target)
 end = time.perf_counter()
 travdf['Package'].append("ETE")
 travdf['TreeSize'].append(ts)

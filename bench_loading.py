@@ -29,7 +29,7 @@ loaddf['LoadTime'].append(end-start)
 #finally, load it with biopython.phylo
 start = time.perf_counter()
 Phylo.read("subtree.nwk", "newick")
-stop = time.perf_counter()
+end = time.perf_counter()
 loaddf['Package'].append("BioPhylo")
 loaddf['TreeSize'].append(ts)
 loaddf['LoadTime'].append(end-start)
