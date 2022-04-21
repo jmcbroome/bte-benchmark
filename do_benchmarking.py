@@ -23,12 +23,12 @@ try:
             df2 = pd.read_csv("subtree_times.csv")
             df3 = pd.read_csv("load_times.csv")
             df4 = pd.read_csv("rsearch_times.csv")
-            df5 = pd.read_csv("find_times.csv")
-            df = reduce(lambda left,right: pd.merge(left,right,on=['Package','TreeSize'], how='outer'), [df,df2,df3,df4,df5])
-            df['Perm'] = p
+            #df5 = pd.read_csv("find_times.csv")
+            df = reduce(lambda left,right: pd.merge(left,right,on=['Package','TreeSize'], how='outer'), [df,df2,df3,df4])#,df5])
+            #df['Perm'] = p
             alldf.append(df)
 except KeyboardInterrupt:
     pass
 # df_merged = reduce(lambda left,right: pd.merge(left,right,on=['Package','TreeSize'], how='outer'), alldf)
 df_merged = pd.concat(alldf,axis=0)
-df_merged.to_csv("benchmarking_results_r2.csv",index=False)
+df_merged.to_csv("benchmarking_results.csv",index=False)
