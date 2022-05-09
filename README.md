@@ -1,2 +1,2 @@
 # bte-benchmark
-Repository of scripts used to benchmark BTE. 
+Loose repository of various scripts used to benchmark BTE. 
