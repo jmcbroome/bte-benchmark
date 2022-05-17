@@ -15,20 +15,20 @@ try:
             print("Benchmarking subtree size {}...".format(s),file=sys.stderr)
             subprocess.check_call("python3 bench_loading.py subsets/{}_random.pb".format(s),shell=True)
             subprocess.check_call("python3 bench_traversal.py subsets/{}_random.pb".format(s),shell=True)
-            #subprocess.check_call("python3 bench_subtree.py subsets/{}_random.pb".format(s),shell=True)
+            subprocess.check_call("python3 bench_subtree.py subsets/{}_random.pb".format(s),shell=True)
             subprocess.check_call("python3 bench_rsearch.py subsets/{}_random.pb".format(s),shell=True)
             #removing the find benchmark for now because everything is really fast and its less informative.
             #subprocess.check_call("python3 bench_find.py subsets/{}_random.pb".format(s),shell=True)
             #load the resulting dataframes and concatenate them
             df1 = pd.read_csv("traversal_times.csv")
-            # df2 = pd.read_csv("subtree_times.csv")
+            df2 = pd.read_csv("subtree_times.csv")
             df3 = pd.read_csv("load_times.csv")
             df4 = pd.read_csv("rsearch_times.csv")
-            df = reduce(lambda left,right: pd.merge(left,right,on=['Package','TreeSize'], how='outer'), [df1,df3,df4])
+            df = reduce(lambda left,right: pd.merge(left,right,on=['Package','TreeSize'], how='outer'), [df1,df2,df3,df4])
             #df['Perm'] = p
             alldf.append(df)
 except KeyboardInterrupt:
     pass
 # df_merged = reduce(lambda left,right: pd.merge(left,right,on=['Package','TreeSize'], how='outer'), alldf)
 df_merged = pd.concat(alldf,axis=0)
-df_merged.to_csv("benchmarking_results_profiled_3.csv",index=False)
+df_merged.to_csv("benchmarking_results_profiled_4.csv",index=False)

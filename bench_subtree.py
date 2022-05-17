@@ -17,11 +17,13 @@ def etesubtree(tree,targets):
     tree.prune(targets)
 @named_profile("BioPhylo\tSubtree\t" + str(ts))
 def physubtree(tree,targets):
-    #phylo does not have a single-line prune, so instead we have to manually prune all non-targets.
-    for t in tree.get_terminals():
-        if t.name not in targets:
-            phyt.prune(t)
-
+    #more complex operation; get the LCA of the samples, make a subtree, then prune all the non-selected samples
+    #that are also descended from that common ancestor.
+    ca = tree.common_ancestor(targets)
+    st = tree.from_clade(ca)
+    for t in st.get_terminals():
+        if t not in targets:
+            st.prune(t)
 
 subtdf = {k:[] for k in ['Package','TreeSize','SubtreeSize','SubtreeTime']}
 matpb = bte.MATree(sys.argv[1])
