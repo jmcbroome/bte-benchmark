@@ -23,7 +23,10 @@ def physubtree(tree,targets):
     st = tree.from_clade(ca)
     for t in st.get_terminals():
         if t not in targets:
-            st.prune(t)
+            try:
+                st.prune(t)
+            except:
+                continue
 
 subtdf = {k:[] for k in ['Package','TreeSize','SubtreeSize','SubtreeTime']}
 matpb = bte.MATree(sys.argv[1])
